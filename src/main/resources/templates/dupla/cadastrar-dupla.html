@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head th:replace="index :: header">
+<body>
+
+	<nav th:replace="home :: menu"></nav>
+
+	<h4>Cadastrar Dupla</h4>
+	<form action="/admin/salvarDupla" method="post" th:object="${dupla}">
+		<input type="hidden" th:field="*{numeroInscricao}">
+		<fieldset class="col s6">
+			<div class="row">
+				<div class="input-field col s12">
+					<select name="jogador1">
+						<option value="-1">Selecione um jogador</option>
+						<option th:each="jog : ${listaJogadores}" th:text="${jog.nome}"
+							th:value="${jog.codigo}"></option>
+					</select> <label>Jogador 1</label>
+				</div>
+				<div class="input-field col s12">
+					<select name="jogador2">
+						<option value="-1">Selecione um jogador</option>
+						<option th:each="jog : ${listaJogadores}" th:text="${jog.nome}"
+							th:value="${jog.codigo}"></option>
+					</select> <label>Jogador 2</label>
+				</div>
+			</div>
+
+			<button class="btn waves-effect waves-light">Salvar</button>
+			<div th:text="${msg}" class="invalid waves-effect waves-light"></div>
+		</fieldset>
+	</form>
+
+</body>
+</html>

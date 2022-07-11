@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head th:replace="index :: header">
+<body>
+
+	<nav th:replace="home :: menu"></nav>
+
+
+	<h4>Remover Dupla</h4>
+	<hr />
+	<form action="/admin/removerDupla" method="post">
+		<fieldset class="col s6" th:if="${msg == null}">
+			<div class="row">
+				<div class="input-field col s6">
+					<input placeholder="Digite o número de Inscricão"
+						id="numeroInscricao" name="numeroInscricao" type="text"
+						class="validate"> <label for="numeroInscricao">Número
+						de Inscrição</label>
+				</div>
+			</div>
+			<button class="btn waves-effect waves-light">Remover</button>
+
+		</fieldset>
+		<h6 th:text="${msg}" class="waves-light"></h6>
+
+	</form>
+	<hr />
+
+</body>
+</html>

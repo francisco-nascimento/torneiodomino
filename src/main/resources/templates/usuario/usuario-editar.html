@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+
+<head th:replace="index :: header">
+<body>
+
+	<nav th:replace="home :: menu"></nav>
+
+	<h4>Alterar dados do Usuário</h4>
+	<form class="login-form" action="/admin/alterarUsuario" method="post"
+		th:object="${usuario}">
+		<input type="hidden" th:field="*{codigo}" />
+		<div class="row">
+			<div class="input-field col s4">
+				<input id="nome" type="text" required="required" th:field="*{nome}">
+				<label for="nome">Nome</label>
+			</div>
+			<div class="input-field col s4">
+				<input id="usuario" type="text" required="required"
+					th:field="*{login}"> <label for="usuario">Login</label>
+			</div>
+
+			<div class="input-field col s4">
+				<input id="email" type="email" required="required"
+					th:field="*{email}"> <label for="email">E-mail</label>
+			</div>
+			<div class="row">
+				<div class="input-field col s6">
+					<p> Perfil:
+						<label th:each=" p : ${T(br.ifpe.web3.model.Perfil).values()}"> 
+						   <input name="group1" type="radio"
+							th:field="*{perfil}" th:value="${p}" /> 
+							<span th:text="${p}"></span>
+						</label>
+					</p>
+				</div>
+				<div class="input-field col s6">
+					<p> Ativo:
+						<label> 
+						   <input name="group2" type="radio"
+							th:field="*{ativo}" value="true" checked /> 
+						   <span>Sim</span>
+						</label>
+						<label> 
+						   <input name="group2" type="radio"
+							th:field="*{ativo}" value="false" /> 
+						   <span>Não</span>
+						</label>
+					</p>
+				</div>
+			</div>
+			<div th:if="${#fields.hasAnyErrors()}">
+				<span th:each="err : ${#fields.allErrors()}" th:text="${err}"></span>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s6">
+					<button type="submit" class="btn waves-effect waves-light col s12">Enviar</button>
+				</div>
+				<div class="input-field col s6">
+					<button type="reset" class="btn waves-effect waves-light col s12">Limpar</button>
+				</div>
+			</div>
+	</form>
+
+
+</body>
+</html>

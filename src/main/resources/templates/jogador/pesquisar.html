@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+
+<head th:replace="index :: header">
+<body>
+
+	<nav th:replace="home :: menu"></nav>
+
+	<h4>Listar Jogadores</h4>
+
+	<hr />
+	<form action="/admin/findJogador" method="get">
+		<fieldset class="col s6">
+			<div class="row">
+				<div class="input-field col s6">
+					<input placeholder="Digite o nome" id="nome" name="nome"
+						type="text" class="validate"> <label for="nome">Nome</label>
+				</div>
+				<div class="input-field col s6">
+					<div>
+						<label for="categoria">Categoria</label> <br /> <label
+							th:each="s : ${T(br.ifpe.web3.model.Categoria).values()}">
+							<input type="radio" th:value="${s}" name="categoria"> <span
+							th:text="${s}"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+			<button class="btn waves-effect waves-light">Pesquisar</button>
+		</fieldset>
+	</form>
+	<hr />
+
+
+	<table class="striped">
+		<tr>
+			<th><a href="/findJogador?ordem=nome">Nome</a></th>
+			<th><a href="/findJogador?ordem=cpf">CPF</a></th>
+			<th><a href="/findJogador?ordem=categoria">Categoria</a></th>
+			<th>..</th>
+		</tr>
+		<tr th:each="aux : ${colecao}">
+			<td th:text="${aux.nome}">&nbsp</td>
+			<td th:text="${aux.cpf}">&nbsp;</td>
+			<td th:text="${aux.categoria}">&nbsp;</td>
+			<td><a class="btn-floating btn-small waves-light blue icone"
+				th:href="|editarJogador?codigo=${aux.codigo}|"> <i
+					class="material-icons">edit</i></a> <a
+				class="btn-floating btn-small waves-light red icone"
+				th:href="|removerJogador?codigo=${aux.codigo}|"> <i
+					class="material-icons">remove_circle</i></a></td>
+
+		</tr>
+	</table>
+
+</body>
+</html>

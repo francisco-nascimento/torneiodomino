@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org" class="html-login">
+<head th:fragment="header">
+<meta charset="UTF-8">
+<title>Torneio de Dominó</title>
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-2.1.1.min.js">
+      </script>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Compiled and minified JavaScript -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<link rel="stylesheet" href="/css/style.css">
+
+<script src="/js/torneio.js"> </script>
+</head>
+
+<body class="body-login">
+	<div id="login-page" class="row">
+		<div class="col s12 z-depth-6 card-panel">
+			<form class="login-form" action="efetuarLogin" method="post">
+				<div class="row">
+					<h5 class="card-panel teal lighten-2">Torneio de Dominó IFPE -
+						Administrativo</h5>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="login" type="text" required="required" name="login">
+						<label for="login">Login</label>
+					</div>
+					<div class="input-field col s12">
+						<input id="password" type="password" required="required"
+							name="senha"> <label for="password">Senha</label>
+					</div>
+				</div>
+				<div class="card-panel" id="cardMsg" th:if="${msg}">
+					<span class="blue-text text-darken-2" th:text="${msg}"></span>
+				</div>
+
+				<div class="row card-panel teal lighten-2">
+					<div class="input-field col s12">
+						<button type="submit" class="btn waves-effect waves-light col s12">Login</button>
+					</div>
+					<div class="input-field col s6 m6 l6">
+						<a class="waves-effect btn-small modal-trigger"
+							id="btnNovoUsuario" href="#modal1">Novo usuário</a>
+					</div>
+					<div class="input-field col s6 m6 l6">
+						<a class="waves-effect waves-light btn-small modal-trigger"
+							id="btnNovoUsuario" href="#modal2">Esqueceu a senha?</a>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+
+	<!-- Modal Structure -->
+	<div id="modal1" class="modal">
+		<div class="modal-content">
+			<form class="login-form" action="novoUsuario" method="post"
+				th:object="${usuario}">
+				<div class="row brand-logo center card-panel teal lighten-2">Cadastrar Novo Usuário</div>
+				<div class="row">
+					<div class="input-field col s6">
+						<input id="nome" type="text" required="required"
+							th:field="*{nome}"> <label for="nome">Nome</label>
+					</div>
+					<div class="input-field col s6">
+						<input id="usuario" type="text" required="required"
+							th:field="*{login}"> <label for="usuario">Login</label>
+					</div>
+				</div>
+				<div class="row">
+
+					<div class="input-field col s6">
+						<input id="email" type="email" required="required"
+							th:field="*{email}"> <label for="email">E-mail</label>
+					</div>
+					<div class="input-field col s6">
+						<input id="password" type="password" required="required"
+							th:field="*{senha}"> <label for="password">Senha</label>
+					</div>
+				</div>
+				<div th:if="${#fields.hasAnyErrors()}">
+					<span th:each="err : ${#fields.allErrors()}" th:text="${err}"></span>
+				</div>
+
+				<div class="row">
+					<div class="input-field col s6">
+						<button type="submit" class="btn waves-effect waves-light col s12">Enviar</button>
+					</div>
+					<div class="input-field col s6">
+						<button type="reset" class="btn waves-effect waves-light col s12">Limpar</button>
+					</div>
+				</div>
+				<script th:if="${#fields.hasAnyErrors()}">
+   					exibirModalErro();
+				</script>
+			</form>
+		</div>
+	</div>
+
+
+	<!-- Modal Structure -->
+	<div id="modal2" class="modal">
+		<div class="modal-content">
+			<form class="login-form" action="lembrarSenha" method="post">
+				<div class="row brand-logo center card-panel teal lighten-2">Solicitar
+					senha</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="nome" type="text" required="required"
+							name="login"> <label for="nome">Login</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<button type="submit" class="btn waves-effect waves-light col s12">Enviar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>

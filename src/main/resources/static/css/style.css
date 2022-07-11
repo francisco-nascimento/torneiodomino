@@ -1,0 +1,40 @@
+body {
+	padding-left: 100px;
+	padding-right: 100px;
+	min-width: 240px;
+	width: 100%;
+}
+
+main {
+	padding: 0 20px;
+	width: 100%;
+	height: 400px;
+}
+
+main, nav {
+	position: relative;
+}
+
+.icone {
+	height: 40px;
+	width: 40px;
+}
+
+/* estilos da pagina de Login */
+
+.html-login {
+	display: table;
+	margin: auto;
+	height: 100%;
+}
+
+.body-login {
+	height: 100%;
+	display: table-cell;
+	vertical-align: middle;
+	background: #4ECDC4;
+}
+
+#login-page {
+	width: 500px;
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+
+<head th:replace="index :: header">
+<body>
+
+
+
+	<nav th:fragment="menu">
+		<ul id="dropdown1" class="dropdown-content">
+			<li><a href="/admin/cadJogador">Cadastrar</a></li>
+			<li><a href="/admin/findJogador">Listar</a></li>
+		</ul>
+		<ul id="dropdown2" class="dropdown-content">
+			<li><a href="/admin/cadDupla">Inscrever</a></li>
+			<li><a href="/admin/findDupla">Listar</a></li>
+			<li><a href="/admin/removerDupla">Cancelar</a></li>
+		</ul>
+		<div class="nav-wrapper">
+			<a href="/admin/sair" class="hide-on-med-and-down right">Sair (<span th:text="${session.logado.nome}"></span>)</a>
+			<ul id="nav-mobile" class="left hide-on-med-and-down">
+				<li><a class="dropdown-trigger" href="#!"
+					data-target="dropdown1">Jogadores <i
+						class="material-icons right">arrow_drop_down</i>
+				</a></li>
+				<li><a class="dropdown-trigger" href="#!"
+					data-target="dropdown2">Duplas <i
+						class="material-icons right">arrow_drop_down</i>
+				</a></li>
+				<li><a href="/partidas">Torneio</a></li>
+				<li><a href="/admin/listarUsuarios">Usuários</a></li>
+			</ul>
+		</div>
+	</nav>
+
+
+
+</body>
+</html>

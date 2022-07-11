@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+
+<head th:replace="index :: header">
+<body>
+
+	<nav th:replace="home :: menu"></nav>
+
+	<h4>Listar Usuários</h4>
+
+	<hr />
+	<table class="striped">
+		<tr>
+			<th><a href="/admin/listarUsuarios?ordem=nome">Nome</a></th>
+			<th><a href="/admin/listarUsuarios?ordem=login">Login</a></th>
+			<th><a href="/admin/listarUsuarios?ordem=email">E-mail</a></th>
+			<th><a href="/admin/listarUsuarios?ordem=perfil">Perfil</a></th>
+			<th><a href="/admin/listarUsuarios?ordem=ativo">Status</a></th>
+			<th>..</th>
+		</tr>
+		<tr th:each="aux : ${colecao}">
+			<td th:text="${aux.nome}">&nbsp</td>
+			<td th:text="${aux.login}">&nbsp;</td>
+			<td th:text="${aux.email}">&nbsp;</td>
+			<td th:text="${aux.perfil}">&nbsp;</td>
+			<td th:text="${aux.ativo ? 'Ativo' : 'Bloqueado'}">&nbsp;</td>
+			<td><a class="btn-floating btn-small waves-light blue icone"
+				th:href="|editarUsuario?codigo=${aux.codigo}|"> <i
+					class="material-icons">edit</i></a> <a
+				class="btn-floating btn-small waves-light red icone"
+				th:href="|removerUsuario?codigo=${aux.codigo}|"> <i
+					class="material-icons">remove_circle</i></a></td>
+
+		</tr>
+	</table>
+
+</body>
+</html>
