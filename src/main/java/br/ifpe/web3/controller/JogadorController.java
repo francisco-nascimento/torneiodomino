@@ -38,7 +38,7 @@ public class JogadorController {
 			}
 
 		}
-		return "/jogador/pesquisar";
+		return "jogador/pesquisar";
 	}
 
 	@PostMapping("/salvarJogador")
@@ -51,7 +51,7 @@ public class JogadorController {
 	public String editarJogador(Integer codigo, Model model) {
 		Jogador jogador = this.jogadorDAO.getById(codigo);
 		model.addAttribute("jogador", jogador);
-		return "/jogador/cadastrar";
+		return "jogador/cadastrar";
 	}
 
 	@GetMapping("/removerJogador")

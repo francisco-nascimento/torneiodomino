@@ -67,14 +67,14 @@ public class UsuarioController {
 	@GetMapping("/admin/listarUsuarios")
 	public String exibirListaUsuarios(@RequestParam(defaultValue = "email") String ordem, Model model) {
 		model.addAttribute("colecao", this.usuarioService.listarUsuarios(ordem));
-		return "/usuario/usuario-listar";
+		return "usuario/usuario-listar";
 	}
 	
 	@GetMapping("/admin/editarUsuario")
 	public String editarUsuario(Integer codigo, Model model) {
 		Usuario user = this.usuarioService.consultarUsuarioPeloId(codigo);
 		model.addAttribute("usuario", user);
-		return "/usuario/usuario-editar";
+		return "usuario/usuario-editar";
 	}
 
 	@GetMapping("/admin/removerUsuario")
@@ -86,7 +86,7 @@ public class UsuarioController {
 	
 	@GetMapping("/esqueceuSenha")
 	public String exibirEsqueceuSenha() {
-		return "/esqueceu-senha";
+		return "esqueceu-senha";
 
 	}
 	

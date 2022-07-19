@@ -40,7 +40,7 @@ public class PartidaController {
 			model.addAttribute("classificacao", duplas);
 		}
 		model.addAttribute("torneio", torneio);
-		return "/partida/torneio-partidas";
+		return "partida/torneio-partidas";
 	}
 	
 	@PostMapping("/admin/gerarTorneio")

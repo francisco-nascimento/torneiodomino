@@ -19,7 +19,7 @@ public class TorneioDominoController {
 
 	@GetMapping("/admin/home")
 	public String exibirHome() {
-		return "/home";
+		return "home";
 	}
 	
 	@PostMapping("/efetuarLogin")
