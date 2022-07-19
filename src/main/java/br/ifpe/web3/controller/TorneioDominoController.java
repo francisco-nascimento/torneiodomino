@@ -4,7 +4,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -14,8 +13,6 @@ import br.ifpe.web3.model.Usuario;
 
 @Controller
 public class TorneioDominoController {
-	private static String USER = "admin";
-	private static String PASSWORD = "1234";
 	
 	@Autowired
 	private UsuarioDAO usuarioDAO;
@@ -26,14 +23,15 @@ public class TorneioDominoController {
 	}
 	
 	@PostMapping("/efetuarLogin")
-	public String efetuarLogin(String login, String senha, HttpSession sessao, RedirectAttributes ra) {
+	public String efetuarLogin(Usuario usuario, HttpSession sessao, RedirectAttributes ra) {
 		
-		Usuario usuario = this.usuarioDAO.findByLoginAndSenha(login, senha);
-		if (usuario != null) {
+		Usuario user = this.usuarioDAO.findByLoginAndSenha(usuario.getLogin(), 
+				usuario.getSenha());
+		if (user != null) {
 			
-			if (usuario.isAtivo()) {
+			if (user.isAtivo()) {
 				// Salvar objeto na sessao
-				sessao.setAttribute("logado", usuario);
+				sessao.setAttribute("logado", user);
 				return "redirect:/admin/home";
 				
 			} else {

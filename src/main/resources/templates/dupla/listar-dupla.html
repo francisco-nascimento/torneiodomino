@@ -20,7 +20,7 @@
 		<tr th:each="aux : ${colecao}">
 			<td th:text="${aux.numeroInscricao}">&nbsp;</td>
 			<td th:text="|${aux.jogador1.nome} (${aux.jogador1.categoria}) & ${aux.jogador2.nome} (${aux.jogador2.categoria})|">&nbsp;</td>
-			<td th:text="${aux.eliminada ? 'Eliminada' : 'Em jogo'}">&nbsp;</td>
+			<td th:text="${aux.status}">&nbsp;</td>
 			<td th:text="${aux.pontuacao}">&nbsp;</td>
 			<td><img src="/images/win-icon.png" class="icone">&nbsp; <img
 				src="/images/lose-icon.png" class="icone"></td>

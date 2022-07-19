@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+
+<head th:replace="index :: header">
+<body>
+
+	<nav th:replace="home :: menu"></nav>
+
+	<main>
+		<form action="/admin/gerarTorneio" method="post"
+			th:object="${torneio}">
+			<input type="hidden" th:field="*{codigo}">
+			<fieldset class="col s6" th:if="${torneio.codigo == null}">
+				<h6>Gerar um Torneio</h6>
+
+				<div class="row">
+					<div class="input-field col s6">
+						<input placeholder="Digite o nome do torneio" id="nome"
+							th:field="*{nome}" required="required" type="text"
+							class="validate"> <label for="nome">Nome</label>
+					</div>
+					<div class="input-field col s6">
+						<button class="btn waves-effect waves-light">Salvar</button>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset class="col s6" th:if="${torneio.codigo != null}">
+				<div th:text="${torneio.nome}"></div>
+				<a class="btn waves-effect"
+					th:href="|/admin/gerarPartidas?codigo=${torneio.codigo}|">
+					Gerar Partidas</a> &nbsp; <a class="btn waves-effect"
+					th:href="|/admin/iniciarPartidas?codigo=${torneio.codigo}|">Iniciar
+					Torneio</a>
+				<div th:text="${msg}" class="invalid waves-effect waves-light"></div>
+			</fieldset>
+		</form>
+		<div class="row">
+			<div class="col s12">
+				<ul class="tabs" id="tabs-swipe-demo">
+					<li class="tab col s6"><a class="active" href="#test1">Partidas</a></li>
+					<li class="tab col s6"><a href="#test2">Classificação</a></li>
+				</ul>
+			</div>
+			<div id="test1" class="col s12">
+				<div th:each="part : ${listaPartidas}"
+					th:text="|[${part.dupla1.jogador1.nome}-${part.dupla1.jogador2.nome}] X [${part.dupla2.jogador1.nome}-${part.dupla2.jogador2.nome}]|"></div>
+			</div>
+			<div id="test2" class="col s12">
+				<div class="right-align" th:each="dupla : ${classificacao}" th:text="|${dupla.jogador1.nome}-${dupla.jogador2.nome} ..... ${dupla.pontuacao}|"></div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

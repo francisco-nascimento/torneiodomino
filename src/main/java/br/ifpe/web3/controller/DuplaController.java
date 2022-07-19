@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import br.ifpe.web3.dao.DuplaDAO;
 import br.ifpe.web3.dao.JogadorDAO;
 import br.ifpe.web3.model.Dupla;
+import br.ifpe.web3.model.StatusDupla;
 
 @Controller
 @RequestMapping("/admin")
@@ -51,7 +52,7 @@ public class DuplaController {
 			return this.CadastrarDupla(dupla, model);
 		}
 		dupla.setPontuacao(0);
-		dupla.setEliminada(false);
+		dupla.setStatus(StatusDupla.SEM_PARTIDA);
 		this.duplaDAO.save(dupla);
 		return "redirect:/admin/findDupla";
 	}

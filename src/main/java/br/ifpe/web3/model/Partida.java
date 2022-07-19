@@ -24,6 +24,21 @@ public class Partida {
 	private Integer pontuacaoDupla2;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dataPartida;
+	@ManyToOne
+	private Torneio torneio;
+	
+	public Integer getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+	public Torneio getTorneio() {
+		return torneio;
+	}
+	public void setTorneio(Torneio torneio) {
+		this.torneio = torneio;
+	}
 	public Dupla getDupla1() {
 		return dupla1;
 	}
@@ -54,7 +69,5 @@ public class Partida {
 	public void setDataPartida(LocalDate dataPartida) {
 		this.dataPartida = dataPartida;
 	}
-	
-	
 	
 }

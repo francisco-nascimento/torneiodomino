@@ -1,13 +1,12 @@
 package br.ifpe.web3.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.Type;
 
 @Entity
 public class Dupla {
@@ -21,9 +20,15 @@ public class Dupla {
 	private Jogador jogador2;
 	//boolean taxaInscricao;
 	private Integer pontuacao;
-	@Type(type = "yes_no")
-	@Column(length = 1)
-	boolean eliminada;
+	@Enumerated(EnumType.STRING)
+	private StatusDupla status;
+	
+	public StatusDupla getStatus() {
+		return status;
+	}
+	public void setStatus(StatusDupla status) {
+		this.status = status;
+	}
 	public Integer getNumeroInscricao() {
 		return numeroInscricao;
 	}
@@ -48,11 +53,9 @@ public class Dupla {
 	public void setPontuacao(Integer pontuacao) {
 		this.pontuacao = pontuacao;
 	}
-	public boolean isEliminada() {
-		return eliminada;
-	}
-	public void setEliminada(boolean eliminada) {
-		this.eliminada = eliminada;
+	@Override
+	public String toString() {
+		return "Dupla [numeroInscricao=" + numeroInscricao + ", status=" + status + "]";
 	}
 	
 	
