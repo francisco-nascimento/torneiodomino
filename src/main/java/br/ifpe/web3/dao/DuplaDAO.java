@@ -8,5 +8,5 @@ import br.ifpe.web3.model.Jogador;
 public interface DuplaDAO extends JpaRepository<Dupla, Integer>{
 
 	boolean existsByJogador1AndJogador2(Jogador jogador1, Jogador jogador2);
-
+	
 }

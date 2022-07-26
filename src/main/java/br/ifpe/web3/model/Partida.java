@@ -20,8 +20,8 @@ public class Partida {
 	private Dupla dupla1;
 	@ManyToOne
 	private Dupla dupla2;
-	private Integer pontuacaoDupla1;
-	private Integer pontuacaoDupla2;
+	private Integer placar1;
+	private Integer placar2;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dataPartida;
 	@ManyToOne
@@ -51,23 +51,24 @@ public class Partida {
 	public void setDupla2(Dupla dupla2) {
 		this.dupla2 = dupla2;
 	}
-	public Integer getPontuacaoDupla1() {
-		return pontuacaoDupla1;
-	}
-	public void setPontuacaoDupla1(Integer pontuacaoDupla1) {
-		this.pontuacaoDupla1 = pontuacaoDupla1;
-	}
-	public Integer getPontuacaoDupla2() {
-		return pontuacaoDupla2;
-	}
-	public void setPontuacaoDupla2(Integer pontuacaoDupla2) {
-		this.pontuacaoDupla2 = pontuacaoDupla2;
-	}
+
 	public LocalDate getDataPartida() {
 		return dataPartida;
 	}
 	public void setDataPartida(LocalDate dataPartida) {
 		this.dataPartida = dataPartida;
+	}
+	public Integer getPlacar1() {
+		return placar1;
+	}
+	public void setPlacar1(Integer placar1) {
+		this.placar1 = placar1;
+	}
+	public Integer getPlacar2() {
+		return placar2;
+	}
+	public void setPlacar2(Integer placar2) {
+		this.placar2 = placar2;
 	}
 	
 }

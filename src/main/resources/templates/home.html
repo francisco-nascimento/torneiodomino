@@ -17,23 +17,68 @@
 			<li><a href="/admin/removerDupla">Cancelar</a></li>
 		</ul>
 		<div class="nav-wrapper">
-			<a href="/admin/sair" class="hide-on-med-and-down right">Sair (<span th:text="${session.logado.nome}"></span>)</a>
+			<a href="/admin/sair" class="hide-on-med-and-down right"
+				title="<span th:text='${session.logado.nome}'></span>">Sair (<span
+				th:if="${session.torneioAtivo != null}" th:text="${session.torneioAtivo.nome}"></span>)</a>
 			<ul id="nav-mobile" class="left hide-on-med-and-down">
 				<li><a class="dropdown-trigger" href="#!"
 					data-target="dropdown1">Jogadores <i
 						class="material-icons right">arrow_drop_down</i>
 				</a></li>
 				<li><a class="dropdown-trigger" href="#!"
-					data-target="dropdown2">Duplas <i
-						class="material-icons right">arrow_drop_down</i>
+					data-target="dropdown2">Duplas <i class="material-icons right">arrow_drop_down</i>
 				</a></li>
-				<li><a href="/admin/partidas">Torneio</a></li>
+				<li><a href="/admin/partidas">Partidas</a></li>
 				<li><a href="/admin/listarUsuarios">Usuários</a></li>
 			</ul>
 		</div>
 	</nav>
 
+	<main>
 
+		<form action="/admin/gerarTorneio" method="post"
+			th:object="${torneio}">
+			<input type="hidden" th:field="*{codigo}">
+			<fieldset class="col s6" th:if="${torneio.codigo == null}">
+				<h6>Gerar um Torneio</h6>
+
+				<div class="row">
+					<div class="input-field col s6">
+						<input placeholder="Digite o nome do torneio" id="nome"
+							th:field="*{nome}" required="required" type="text"
+							class="validate"> <label for="nome">Nome</label>
+					</div>
+					<div class="input-field col s6">
+						<button class="btn waves-effect waves-light">Salvar</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+		<h6>Para entrar nas demais opções do menu, crie ou ative um Torneio.</h6>
+
+		<table id="test2" class="striped col s12">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Partidas geradas</th>
+					<th>Partidas iniciadas</th>
+					<th>Selecionar</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="torn : ${torneios}">
+					<td th:text="${torn.nome}"></td>
+					<td th:text="${torn.partidasGeradas}"></td>
+					<td th:text="${torn.partidasIniciadas}"></td>
+					<td><a th:href="|/admin/selecionarTorneio?codigo=${torn.codigo}|">Entrar</a>
+					</td>
+
+				</tr>
+			</tbody>
+		</table>
+
+	</main>
 
 </body>
 </html>

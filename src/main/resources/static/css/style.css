@@ -38,3 +38,9 @@ main, nav {
 #login-page {
 	width: 500px;
 }
+
+.nowrap_div {
+	display: inline-block;
+	white-space: nowrap;
+	
+}

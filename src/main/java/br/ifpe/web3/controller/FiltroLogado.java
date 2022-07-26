@@ -31,6 +31,11 @@ public class FiltroLogado implements Filter{
 		if (sessao != null && sessao.getAttribute("logado") != null) {
 			System.out.println("Logado!");
 			
+//			if (sessao.getAttribute("torneioAtivo") == null) {
+//				res.sendRedirect("/admin/home");				
+//
+//			}
+			
 			Usuario usuario = (Usuario) sessao.getAttribute("logado");
 			if (usuario.getPerfil() == Perfil.ADMIN) {
 				chain.doFilter(request, response);				

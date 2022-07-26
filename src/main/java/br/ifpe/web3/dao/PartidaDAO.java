@@ -9,6 +9,8 @@ import br.ifpe.web3.model.Torneio;
 
 public interface PartidaDAO extends JpaRepository<Partida, Integer>{
 
-	List<Partida> findByTorneio(Torneio torneio);
+	List<Partida> findByTorneioCodigo(Integer codigo);
+	
+	void deleteByTorneio(Torneio torneio);
 
 }

@@ -17,24 +17,26 @@ import br.ifpe.web3.model.Partida;
 import br.ifpe.web3.model.Torneio;
 import br.ifpe.web3.model.Usuario;
 import br.ifpe.web3.services.PartidaService;
+import br.ifpe.web3.services.PartidasExistentesTorneioException;
 
 @Controller
 public class PartidaController {
-	
-		@Autowired
-		private PartidaService  partidaService;
-	
+
+	@Autowired
+	private PartidaService partidaService;
+
 	@GetMapping("/admin/partidas")
-	public String exibirPartidas(Torneio torneio, Model model, HttpSession session) {
-		
-		Usuario logado = this.obterUsuarioLogado(session);
-		if (logado != null) {
-			torneio = this.partidaService.consultarTorneioPorUsuario(logado);
-		}
+	public String exibirPartidas(Model model, HttpSession session) {
+
+//		Usuario logado = this.obterUsuarioLogado(session);
+//		if (logado != null) {
+//			torneio = this.partidaService.consultarTorneioPorUsuario(logado);
+//		}
+		Torneio torneio = (Torneio) session.getAttribute("torneioAtivo");
 		if (torneio == null) {
 			torneio = new Torneio();
 		} else {
-			List<Partida> partidas = this.partidaService.consultarPartidasPorTorneio(torneio);
+			List<Partida> partidas = this.partidaService.consultarPartidasPorTorneio(torneio.getCodigo());
 			model.addAttribute("listaPartidas", partidas);
 			List<Dupla> duplas = this.partidaService.consultarDuplasClassificacao();
 			model.addAttribute("classificacao", duplas);
@@ -42,30 +44,56 @@ public class PartidaController {
 		model.addAttribute("torneio", torneio);
 		return "partida/torneio-partidas";
 	}
-	
-	@PostMapping("/admin/gerarTorneio")
-	public String gerarTorneio(Torneio torneio, HttpSession session) {
-		Usuario logado = this.obterUsuarioLogado(session);
-		torneio.setOrganizador(logado);
-		this.partidaService.salvarTorneio(torneio);
-		return "redirect:/admin/partidas"; 
-	}
-	
+
+
 	@GetMapping("/admin/gerarPartidas")
 	public String gerarPartidas(@RequestParam Integer codigo, RedirectAttributes ra) {
 		try {
 			this.partidaService.gerarPartidas(codigo);
 		} catch (Exception e) {
+			e.printStackTrace();
 			ra.addFlashAttribute("msg", e.getMessage());
 		}
-		return "redirect:/admin/partidas"; 
+		return "redirect:/admin/partidas";
+	}
+
+	@GetMapping("/admin/zerarPartidas")
+	public String zerarPartidas(@RequestParam Integer codigo, RedirectAttributes ra) {
+		try {
+			int qtd = this.partidaService.removerPartidasTorneio(codigo);
+			ra.addFlashAttribute("msg", "Foram removidas " + qtd + " partidas.");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			ra.addFlashAttribute("msg", e.getMessage());
+		}
+
+		return "redirect:/admin/partidas";
+
 	}
 	
-	private Usuario obterUsuarioLogado(HttpSession session) {
-		if (session != null && session.getAttribute("logado") != null) {
-			return (Usuario) session.getAttribute("logado");
-		} else {
-			return null;
+	@PostMapping("/admin/registrarPlacar")
+	public String registrarPlacar(Integer codigo, Integer placar1, Integer placar2, RedirectAttributes ra) {
+		System.out.println(codigo + " - " + placar1 + " x " + placar2);
+		try {
+			this.partidaService.registrarPlacar(codigo, placar1, placar2);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ra.addFlashAttribute("msg2", e.getMessage());
 		}
+		return "redirect:/admin/partidas";
 	}
+
+	@GetMapping("/admin/iniciarTorneio")
+	public String iniciarTorneio(Integer codigo, RedirectAttributes ra) {
+		try {
+			this.partidaService.iniciarTorneio(codigo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ra.addFlashAttribute("msg", e.getMessage());
+		}
+		return "redirect:/admin/partidas";
+	}
+	
+
 }
